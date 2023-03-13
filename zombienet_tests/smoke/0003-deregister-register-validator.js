@@ -21,19 +21,15 @@ async function run(nodeName, networkInfo, jsArgs) {
         const unsub = await api.tx.sudo
           .sudo(api.tx.validatorManager[action]([validatorStash.address]))
           .signAndSend(alice, (result) => {
-            console.log(`Current status is ${result.status}`);
+            
             if (result.status.isInBlock) {
-              console.log(
-                `Transaction included at blockHash ${result.status.asInBlock}`
-              );
+              
             } else if (result.status.isFinalized) {
-              console.log(
-                `Transaction finalized at blockHash ${result.status.asFinalized}`
-              );
+              
               unsub();
               return resolve();
             } else if (result.isError) {
-              console.log(`Transaction Error`);
+              
               unsub();
               return reject();
             }
